@@ -1,1 +1,1 @@
-web: sh -c 'streamlit run upload_video_mixer.py --server.port=${PORT:-8501} --server.address=0.0.0.0 --server.fileWatcherType=none --browser.gatherUsageStats=false --server.enableCORS=true --server.enableXsrfProtection=false'
+web: python start.py
