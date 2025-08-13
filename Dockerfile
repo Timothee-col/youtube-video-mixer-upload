@@ -1,32 +1,42 @@
-FROM python:3.11-slim
+FROM python:3.11
 
-# Installer les dépendances système nécessaires pour dlib et face_recognition
+# Installer TOUTES les dépendances pour compiler dlib
 RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
+    pkg-config \
+    libx11-dev \
+    libatlas-base-dev \
+    libgtk-3-dev \
+    libboost-python-dev \
     libopenblas-dev \
     liblapack-dev \
-    libx11-dev \
-    libgtk-3-dev \
+    libhdf5-dev \
+    python3-dev \
     ffmpeg \
-    wget \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# Installer dlib et face_recognition EN PREMIER (c'est le plus long)
-RUN pip install --no-cache-dir dlib==19.24.0
-RUN pip install --no-cache-dir face-recognition==1.3.0
+# Mettre à jour pip
+RUN pip install --upgrade pip setuptools wheel
 
-# Copier requirements et installer le reste
+# Installer numpy d'abord (requis par dlib)
+RUN pip install numpy
+
+# Installer dlib depuis les wheels pré-compilés ou compiler
+RUN pip install dlib --verbose
+
+# Installer face_recognition
+RUN pip install face-recognition
+
+# Copier et installer les autres dépendances
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copier toute l'application
+# Copier l'application
 COPY . .
 
-# Variables d'environnement
 ENV PYTHONUNBUFFERED=1
 
-# Utiliser le script Python pour démarrer
 CMD ["python", "start.py"]
