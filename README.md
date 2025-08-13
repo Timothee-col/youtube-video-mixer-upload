@@ -206,12 +206,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [face-recognition](https://github.com/ageitgey/face_recognition) for facial detection
 - [OpenCV](https://opencv.org/) for computer vision capabilities
 
-## 📧 Contact
 
-Your Name - [@yourtwitter](https://twitter.com/yourtwitter)
-
-Project Link: [https://github.com/yourusername/youtube-video-mixer-upload](https://github.com/yourusername/youtube-video-mixer-upload)
-
----
-
-Made with ❤️ by [Your Name]
