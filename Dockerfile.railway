@@ -1,0 +1,28 @@
+# Dockerfile simplifié pour Railway
+FROM python:3.11-slim
+
+# Installer ffmpeg et dépendances
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
+    libgomp1 \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copier et installer les dépendances
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copier l'application
+COPY . .
+
+# Variables d'environnement
+ENV PYTHONUNBUFFERED=1
+ENV IS_RAILWAY=true
+
+# Utiliser le script Python pour démarrer
+CMD ["python", "start_app.py"]
