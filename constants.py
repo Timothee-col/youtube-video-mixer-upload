@@ -3,8 +3,8 @@ Constantes et configurations pour Upload Video Mixer
 """
 import os
 
-# Détection de l'environnement (pour compatibilité)
-IS_RAILWAY = False
+# Détection de l'environnement Railway
+IS_RAILWAY = os.environ.get('IS_RAILWAY', 'false').lower() == 'true'
 
 # Formats vidéo - HAUTE QUALITÉ maintenue
 VIDEO_FORMAT = {

@@ -1,0 +1,64 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv
+ENV/
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test files
+test*.py
+test*.mp4
+test*.mov
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+old_versions/
+deployment_configs/
+
+# Media files (don't include in Docker image)
+*.mp4
+*.mov
+*.avi
+*.webm
+*.mkv
+*.mp3
+*.wav
+*.m4a
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Scripts not needed in production
+push_to_github.sh
+reset_git.sh
+change_remote.sh
+test_app.py
+
+# Backup files
+*.backup
+*.bak
+*_backup.py
+*_old.py
