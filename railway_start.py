@@ -14,6 +14,9 @@ def main():
     # Optimisations pour Railway
     os.environ['IMAGEIO_FFMPEG_EXE'] = 'ffmpeg'
     os.environ['OPENCV_VIDEOIO_PRIORITY_FFMPEG'] = '1'
+    # Supprimer les warnings FFmpeg
+    os.environ['FFREPORT'] = 'level=quiet'
+    os.environ['AV_LOG_FORCE_NOCOLOR'] = '1'
     
     print(f"🚂 Démarrage sur Railway - Port {port}")
     print(f"📊 Variables d'environnement:")

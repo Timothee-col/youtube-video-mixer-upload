@@ -14,6 +14,10 @@ if __name__ == '__main__':
     print(f"📊 Port configuré: {port}")
     print(f"🌐 URL interne: http://0.0.0.0:{port}")
     
+    # Supprimer les warnings FFmpeg
+    os.environ['FFREPORT'] = 'level=quiet'
+    os.environ['AV_LOG_FORCE_NOCOLOR'] = '1'
+    
     # Configurer Streamlit via variables d'environnement
     os.environ['STREAMLIT_SERVER_PORT'] = port
     os.environ['STREAMLIT_SERVER_ADDRESS'] = '0.0.0.0'

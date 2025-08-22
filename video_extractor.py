@@ -14,6 +14,10 @@ import cv2
 import numpy as np
 import streamlit as st
 import random
+# Configuration MoviePy pour supprimer les logs FFmpeg
+from moviepy.config import change_settings
+change_settings({"FFMPEG_BINARY": "ffmpeg", "IMAGEMAGICK_BINARY": "convert"})
+
 from moviepy.editor import (
     VideoFileClip, concatenate_videoclips, CompositeVideoClip, 
     ImageClip, AudioFileClip, afx
@@ -209,7 +213,14 @@ def extract_best_clips_with_face(
     Returns:
         List[VideoFileClip]: Liste des clips extraits
     """
-    video = VideoFileClip(video_path)
+    # Charger la vidéo avec gestion d'erreur
+    try:
+        # Désactiver les logs pour ce chargement
+        video = VideoFileClip(video_path, audio=False, verbose=False, logger=None)
+    except Exception as e:
+        st.warning(f"⚠️ Problème de codec détecté, tentative avec méthode alternative...")
+        # Essayer avec des paramètres différents
+        video = VideoFileClip(video_path, audio=False, fps_source='tbr', logger=None)
     duration = video.duration
     
     # Analyser la vidéo

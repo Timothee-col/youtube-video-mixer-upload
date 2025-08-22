@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 Upload Video Mixer Pro 🎬 - TikTok/Reels Edition
 Interface Streamlit pour créer des vidéos verticales avec reconnaissance faciale
@@ -7,6 +9,10 @@ import streamlit as st
 import os
 import tempfile
 from typing import List, Dict, Optional
+
+# Supprimer les warnings FFmpeg
+import os
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 
 # Import des modules
 from constants import (
