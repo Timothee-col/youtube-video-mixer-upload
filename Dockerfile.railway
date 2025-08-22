@@ -23,6 +23,11 @@ COPY . .
 # Variables d'environnement
 ENV PYTHONUNBUFFERED=1
 ENV IS_RAILWAY=true
+# Limiter les threads pour économiser la mémoire
+ENV OMP_NUM_THREADS=1
+ENV MKL_NUM_THREADS=1
+ENV NUMEXPR_NUM_THREADS=1
+ENV OPENBLAS_NUM_THREADS=1
 
 # Utiliser le script Python pour démarrer
 CMD ["python", "start_app.py"]

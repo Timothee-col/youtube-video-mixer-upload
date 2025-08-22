@@ -11,11 +11,16 @@ def main():
     # Récupérer le port depuis Railway (ou utiliser 8501 par défaut)
     port = os.environ.get('PORT', '8501')
     
+    # Optimisations pour Railway
+    os.environ['IMAGEIO_FFMPEG_EXE'] = 'ffmpeg'
+    os.environ['OPENCV_VIDEOIO_PRIORITY_FFMPEG'] = '1'
+    
     print(f"🚂 Démarrage sur Railway - Port {port}")
     print(f"📊 Variables d'environnement:")
     print(f"  - PORT: {port}")
     print(f"  - IS_RAILWAY: {os.environ.get('IS_RAILWAY', 'false')}")
     print(f"  - PYTHONUNBUFFERED: {os.environ.get('PYTHONUNBUFFERED', '0')}")
+    print(f"  - Threads limités pour économiser la mémoire")
     
     # Commande Streamlit
     cmd = [

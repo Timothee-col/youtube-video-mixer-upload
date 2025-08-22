@@ -6,14 +6,25 @@ import os
 # Détection de l'environnement Railway
 IS_RAILWAY = os.environ.get('IS_RAILWAY', 'false').lower() == 'true'
 
-# Formats vidéo - HAUTE QUALITÉ maintenue
-VIDEO_FORMAT = {
-    'width': 1080,
-    'height': 1920,
-    'ratio': 9/16,
-    'fps': 30,
-    'bitrate': '6000k'
-}
+# Formats vidéo - Adapté selon l'environnement
+if IS_RAILWAY:
+    # Configuration allégée pour Railway (mémoire limitée)
+    VIDEO_FORMAT = {
+        'width': 720,      # Réduit de 1080
+        'height': 1280,    # Réduit de 1920
+        'ratio': 9/16,
+        'fps': 24,         # Réduit de 30
+        'bitrate': '2000k' # Réduit de 6000k
+    }
+else:
+    # Configuration haute qualité pour local
+    VIDEO_FORMAT = {
+        'width': 1080,
+        'height': 1920,
+        'ratio': 9/16,
+        'fps': 30,
+        'bitrate': '6000k'
+    }
 
 # Paramètres par défaut
 DEFAULT_SETTINGS = {
@@ -29,30 +40,57 @@ DEFAULT_SETTINGS = {
     'avoid_text': False
 }
 
-# Modes d'analyse
-ANALYSIS_MODES = {
-    '⚡ Rapide (1-2 min)': {
-        'segment_duration': 3,
-        'frames_per_segment': 1,
-        'max_segments': 30,
-        'face_model': 'hog',
-        'upsample': 0
-    },
-    '🎯 Précis (3-5 min)': {
-        'segment_duration': 1.5,
-        'frames_per_segment': 2,
-        'max_segments': 60,
-        'face_model': 'hog',
-        'upsample': 1
-    },
-    '🐌 Très précis (5-10 min)': {
-        'segment_duration': 1,
-        'frames_per_segment': 3,
-        'max_segments': 100,
-        'face_model': 'hog',
-        'upsample': 1
+# Modes d'analyse - Adaptés selon l'environnement
+if IS_RAILWAY:
+    # Modes allégés pour Railway
+    ANALYSIS_MODES = {
+        '⚡ Rapide (1-2 min)': {
+            'segment_duration': 5,      # Augmenté de 3
+            'frames_per_segment': 1,
+            'max_segments': 20,         # Réduit de 30
+            'face_model': 'hog',
+            'upsample': 0
+        },
+        '🎯 Précis (3-5 min)': {
+            'segment_duration': 3,      # Augmenté de 1.5
+            'frames_per_segment': 1,    # Réduit de 2
+            'max_segments': 30,         # Réduit de 60
+            'face_model': 'hog',
+            'upsample': 0               # Réduit de 1
+        },
+        '🐌 Très précis (5-10 min)': {
+            'segment_duration': 2,      # Augmenté de 1
+            'frames_per_segment': 2,    # Réduit de 3
+            'max_segments': 40,         # Réduit de 100
+            'face_model': 'hog',
+            'upsample': 0               # Réduit de 1
+        }
     }
-}
+else:
+    # Modes normaux pour local
+    ANALYSIS_MODES = {
+        '⚡ Rapide (1-2 min)': {
+            'segment_duration': 3,
+            'frames_per_segment': 1,
+            'max_segments': 30,
+            'face_model': 'hog',
+            'upsample': 0
+        },
+        '🎯 Précis (3-5 min)': {
+            'segment_duration': 1.5,
+            'frames_per_segment': 2,
+            'max_segments': 60,
+            'face_model': 'hog',
+            'upsample': 1
+        },
+        '🐌 Très précis (5-10 min)': {
+            'segment_duration': 1,
+            'frames_per_segment': 3,
+            'max_segments': 100,
+            'face_model': 'hog',
+            'upsample': 1
+        }
+    }
 
 # Paramètres de détection
 DETECTION_PARAMS = {
