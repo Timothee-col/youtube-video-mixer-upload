@@ -229,13 +229,8 @@ def extract_best_clips_with_face(
     
     clips = []
     
-    # OPTIMISATIONS SPÉCIFIQUES RAILWAY
-    if IS_RAILWAY:
-        # Réduire le nombre de segments à analyser sur Railway
-        max_clips_per_video = min(max_clips_per_video, 2)  # Max 2 clips par vidéo sur Railway
-        st.info(f"🚂 Mode Railway: Limitation à {max_clips_per_video} clips par vidéo")
-    else:
-        st.info(f"💻 Mode local: {max_clips_per_video} clips par vidéo maximum")
+    # Information sur le nombre de clips
+    st.info(f"📊 Extraction de {max_clips_per_video} clips maximum par vidéo")
     
     for i, segment in enumerate(best_segments[:max_clips_per_video]):
         # Filtrer si nécessaire
